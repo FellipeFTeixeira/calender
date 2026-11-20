@@ -16,7 +16,9 @@ Calendário simples para Windows, no estilo do calendário do iPhone.
 
 ## Instalar
 
-Compile (veja abaixo) e execute `src-tauri/target/release/bundle/nsis/Calendário_1.0.0_x64-setup.exe`. Instala só para o usuário atual, sem precisar de administrador.
+Baixe o `Calendario_x.x.x_x64-setup.exe` da última versão em [Releases](https://github.com/FellipeFTeixeira/calender/releases/latest) e execute. Instala só para o usuário atual, sem precisar de administrador.
+
+O instalador não é assinado digitalmente. Se o Windows mostrar o aviso do SmartScreen, clique em "Mais informações" > "Executar assim mesmo".
 
 Requer WebView2 (já vem no Windows 10/11; se faltar, o instalador baixa).
 
