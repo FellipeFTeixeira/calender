@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Calendário</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="main.js" defer></script>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./main.js"></script>
 </head>
 <body>
   <!-- Welcome screen -->
@@ -41,7 +41,7 @@
     <!-- Month view -->
     <section id="month-view" class="view" hidden>
       <header class="bar">
-        <div class="month-title">
+        <div class="view-title">
           <h2 id="month-name"></h2>
           <span id="month-year"></span>
         </div>
@@ -54,14 +54,14 @@
             <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
           </button>
           <span class="divider"></span>
-          <button id="back-btn" class="back-btn" title="Voltar ao ano (Esc)">
-            <svg viewBox="0 0 24 24" class="grid-icon">
+          <button id="back-year" class="back-btn" title="Voltar ao ano (Esc)">
+            <svg viewBox="0 0 24 24" class="back-icon">
               <rect x="4" y="4" width="6.5" height="6.5" rx="1.6"/>
               <rect x="13.5" y="4" width="6.5" height="6.5" rx="1.6"/>
               <rect x="4" y="13.5" width="6.5" height="6.5" rx="1.6"/>
               <rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.6"/>
             </svg>
-            <span id="back-label"></span>
+            <span id="back-year-label"></span>
           </button>
         </div>
       </header>
@@ -70,6 +70,44 @@
       </div>
       <div id="month-grid" class="month-grid"></div>
     </section>
+
+    <!-- Day view (notes) -->
+    <section id="day-view" class="view" hidden>
+      <header class="bar">
+        <div class="view-title day-title">
+          <h2 id="day-name"></h2>
+          <span id="day-year"></span>
+          <button id="day-holiday" class="holiday-chip" hidden></button>
+        </div>
+        <div class="bar-actions">
+          <button id="prev-day" class="icon-btn" title="Dia anterior" aria-label="Dia anterior">
+            <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <button id="next-day" class="icon-btn" title="Próximo dia" aria-label="Próximo dia">
+            <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+          <span class="divider"></span>
+          <button id="back-month" class="back-btn" title="Voltar ao mês (Esc)">
+            <svg viewBox="0 0 24 24" class="back-icon stroke">
+              <rect x="4" y="5.5" width="16" height="14.5" rx="3"/>
+              <path d="M4 10.5h16M8.5 3.5v4M15.5 3.5v4"/>
+            </svg>
+            <span id="back-month-label"></span>
+          </button>
+        </div>
+      </header>
+      <div id="notes-mount" class="notes-root"></div>
+    </section>
   </main>
+
+  <!-- Holiday info popover -->
+  <div id="holiday-pop" class="holiday-pop" role="tooltip" hidden>
+    <span id="hp-type" class="hp-type"></span>
+    <strong id="hp-name" class="hp-name"></strong>
+    <span id="hp-date" class="hp-date"></span>
+    <a id="hp-link" class="hp-link" href="#">Ler na Wikipédia
+      <svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>
+    </a>
+  </div>
 </body>
 </html>

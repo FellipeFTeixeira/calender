@@ -10,6 +10,10 @@
   --line: rgba(60, 60, 67, 0.13);
   --btn: rgba(118, 118, 128, 0.12);
   --btn-hover: rgba(118, 118, 128, 0.2);
+  --accent-soft: rgba(255, 59, 48, 0.1);
+  --notes: #f5b800;
+  --pop-bg: rgba(255, 255, 255, 0.97);
+  --pop-shadow: 0 10px 34px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.06);
 
   --font-display: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
   --font-text: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
@@ -31,6 +35,10 @@
     --line: rgba(84, 84, 88, 0.55);
     --btn: rgba(118, 118, 128, 0.24);
     --btn-hover: rgba(118, 118, 128, 0.34);
+    --accent-soft: rgba(255, 69, 58, 0.16);
+    --notes: #ffd60a;
+    --pop-bg: rgba(44, 44, 46, 0.97);
+    --pop-shadow: 0 10px 34px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.08);
   }
 }
 
@@ -155,6 +163,7 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   transform-origin: 0 0;
 }
 #month-view { z-index: 2; }
+#day-view { z-index: 3; }
 
 .bar {
   display: flex;
@@ -298,13 +307,13 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 }
 
 /* ---------- Month view ---------- */
-.month-title {
+.view-title {
   display: flex;
   align-items: baseline;
   gap: 12px;
   min-width: 0;
 }
-.month-title h2 {
+.view-title h2 {
   margin: 0;
   font-family: var(--font-display);
   font-size: 40px;
@@ -312,7 +321,7 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   letter-spacing: -0.02em;
   white-space: nowrap;
 }
-.month-title span {
+.view-title > span {
   font-family: var(--font-display);
   font-size: 40px;
   font-weight: 300;
@@ -337,10 +346,16 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 }
 .back-btn:hover { background: var(--btn-hover); }
 .back-btn:active { transform: scale(0.96); }
-.grid-icon {
+.back-icon {
   width: 17px;
   height: 17px;
   fill: var(--accent);
+}
+.back-icon.stroke {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.2;
+  stroke-linecap: round;
 }
 
 .weekdays {
@@ -366,13 +381,35 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   grid-template-rows: repeat(var(--rows, 6), 1fr);
 }
 .day {
+  position: relative;
   border-top: 1px solid var(--line);
   display: flex;
-  justify-content: center;
-  padding-top: 8px;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 7px 6px 4px;
   min-height: 0;
+  min-width: 0;
+  overflow: hidden;
 }
+.day.in {
+  cursor: pointer;
+}
+.day.in::before {
+  content: "";
+  position: absolute;
+  inset: 3px 2px;
+  border-radius: 10px;
+  background: transparent;
+  transition: background-color 140ms;
+  z-index: -1;
+}
+.day.in:hover::before { background: var(--hover); }
+.day.in:active::before { background: var(--press); }
+.month-grid { isolation: isolate; }
+
 .day b {
+  flex: none;
   display: grid;
   place-items: center;
   width: 34px;
@@ -383,9 +420,145 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   font-variant-numeric: tabular-nums;
 }
 .day.weekend b { color: var(--muted); }
+.day.holiday b { color: var(--accent); font-weight: 600; }
 .day.other b { color: var(--faint); font-weight: 400; }
 .day.today b {
   background: var(--accent);
   color: var(--on-accent);
   font-weight: 700;
+}
+
+.pill {
+  max-width: 100%;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hol-pill {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+}
+.note-pill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--btn);
+  color: var(--text);
+}
+.note-pill::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--notes);
+}
+.note-pill span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.more {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* Year view markers */
+.m-days .holiday { color: var(--accent); font-weight: 700; }
+.m-days .has-notes { position: relative; }
+.m-days .has-notes::after {
+  content: "";
+  position: absolute;
+  bottom: 4%;
+  left: 50%;
+  width: 0.28em;
+  height: 0.28em;
+  margin-left: -0.14em;
+  border-radius: 50%;
+  background: var(--notes);
+}
+
+/* ---------- Day view ---------- */
+.day-title { align-items: center; }
+.day-title h2 { font-size: 34px; }
+.day-title > span { font-size: 34px; }
+.holiday-chip {
+  align-self: center;
+  margin-left: 4px;
+  padding: 5px 12px;
+  border-radius: 14px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.holiday-chip:hover { filter: brightness(1.08); }
+#day-view .notes-root { display: flex; flex-direction: column; }
+
+/* ---------- Holiday popover ---------- */
+.holiday-pop {
+  position: fixed;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 260px;
+  padding: 14px 16px 12px;
+  border-radius: 14px;
+  background: var(--pop-bg);
+  box-shadow: var(--pop-shadow);
+  backdrop-filter: blur(20px);
+  animation: pop-in 160ms var(--ease);
+}
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+}
+.hp-type {
+  font-family: var(--font-hint);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.hp-name {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 650;
+  line-height: 1.25;
+}
+.hp-date {
+  font-size: 13px;
+  color: var(--muted);
+}
+.hp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 6px 10px;
+  margin-left: -10px;
+  border-radius: 8px;
+  color: var(--accent);
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.hp-link:hover { background: var(--hover); }
+.hp-link svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
