@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calendário</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <!-- Welcome screen -->
+  <section id="welcome" class="screen" tabindex="0">
+    <div class="welcome-inner">
+      <div class="app-tile" aria-hidden="true">
+        <span id="tile-weekday" class="tile-weekday"></span>
+        <span id="tile-day" class="tile-day"></span>
+      </div>
+      <h1 class="welcome-title">Calendário</h1>
+      <p class="welcome-hint">Clique em qualquer lugar para iniciar</p>
+    </div>
+  </section>
+
+  <main id="app" hidden>
+    <!-- Year view -->
+    <section id="year-view" class="view">
+      <header class="bar">
+        <h2 id="year-title" class="year-title"></h2>
+        <div class="bar-actions">
+          <button id="prev-year" class="icon-btn" title="Ano anterior" aria-label="Ano anterior">
+            <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <button id="year-today" class="text-btn" title="Ir para hoje">Hoje</button>
+          <button id="next-year" class="icon-btn" title="Próximo ano" aria-label="Próximo ano">
+            <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </header>
+      <div id="year-grid" class="year-grid"></div>
+    </section>
+
+    <!-- Month view -->
+    <section id="month-view" class="view" hidden>
+      <header class="bar">
+        <div class="month-title">
+          <h2 id="month-name"></h2>
+          <span id="month-year"></span>
+        </div>
+        <div class="bar-actions">
+          <button id="prev-month" class="icon-btn" title="Mês anterior (←)" aria-label="Mês anterior">
+            <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <button id="month-today" class="text-btn" title="Ir para hoje">Hoje</button>
+          <button id="next-month" class="icon-btn" title="Próximo mês (→)" aria-label="Próximo mês">
+            <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+          <span class="divider"></span>
+          <button id="back-btn" class="back-btn" title="Voltar ao ano (Esc)">
+            <svg viewBox="0 0 24 24" class="grid-icon">
+              <rect x="4" y="4" width="6.5" height="6.5" rx="1.6"/>
+              <rect x="13.5" y="4" width="6.5" height="6.5" rx="1.6"/>
+              <rect x="4" y="13.5" width="6.5" height="6.5" rx="1.6"/>
+              <rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.6"/>
+            </svg>
+            <span id="back-label"></span>
+          </button>
+        </div>
+      </header>
+      <div class="weekdays">
+        <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+      </div>
+      <div id="month-grid" class="month-grid"></div>
+    </section>
+  </main>
+</body>
+</html>
