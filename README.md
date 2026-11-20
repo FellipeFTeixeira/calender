@@ -5,13 +5,19 @@ Calendário simples para Windows, no estilo do calendário do iPhone.
 - Tela inicial; clique em qualquer lugar para entrar
 - Visão do ano com os 12 meses
 - Clique em um mês para abrir (com zoom); botão no canto superior direito volta para o ano
-- Setas ← → trocam o mês/ano, Esc volta para o ano
+- Clique em um dia para abrir as notas daquele dia (editor do app Notas, dentro do calendário)
+- Feriados nacionais marcados; passe o mouse para ver detalhes e link da Wikipédia
+- Setas ← → trocam o mês/ano, Esc volta
 - Tema claro/escuro conforme o Windows
+
+As notas ficam em `Documentos\Calendario\data` (um arquivo JSON por nota, imagens em `attachments`).
 
 ## Stack
 
 - Tauri 2 (Rust)
-- HTML, CSS e JavaScript puro (sem framework, sem bundler)
+- Calendário em HTML, CSS e JavaScript puro
+- Notas em React + TipTap (carregado só quando abre um dia)
+- Vite para o build do frontend
 - Instalador NSIS
 
 ## Instalar
@@ -39,4 +45,4 @@ npm run build   # gerar o .exe e o instalador
 Saída:
 
 - `src-tauri/target/release/calendario.exe`
-- `src-tauri/target/release/bundle/nsis/Calendário_1.0.0_x64-setup.exe`
+- `src-tauri/target/release/bundle/nsis/Calendário_x.x.x_x64-setup.exe`
