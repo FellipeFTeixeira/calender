@@ -562,3 +562,61 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+/* ---------- Update bar ---------- */
+.update-bar {
+  position: fixed;
+  z-index: 60;
+  left: 50%;
+  bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 6px 6px 18px;
+  border-radius: 24px;
+  background: var(--pop-bg);
+  box-shadow: var(--pop-shadow);
+  backdrop-filter: blur(20px);
+  font-size: 14px;
+  opacity: 0;
+  transform: translate(-50%, 12px);
+  transition: opacity 250ms var(--ease), transform 250ms var(--ease);
+}
+.update-bar.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.update-text {
+  margin-right: 6px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.update-btn {
+  height: 32px;
+  padding: 0 16px;
+  border-radius: 16px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
+  transition: filter 150ms, opacity 150ms;
+}
+.update-btn:hover { filter: brightness(1.08); }
+.update-btn:disabled { opacity: 0.5; cursor: default; filter: none; }
+.update-later {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  transition: background-color 150ms;
+}
+.update-later:hover { background: var(--hover); }
+.update-later svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}

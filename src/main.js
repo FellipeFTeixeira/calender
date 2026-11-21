@@ -559,3 +559,19 @@ el.welcome.focus();
 loadNotes();
 // Warm up the editor bundle so the first day opens instantly.
 (window.requestIdleCallback ?? setTimeout)(() => loadNotesUi(), { timeout: 3000 });
+
+// Look for a new version a few seconds after start, without slowing it down.
+if (IS_TAURI) {
+  setTimeout(async () => {
+    const { checkForUpdate } = await import("./updater.js");
+    checkForUpdate({
+      // Close the open day so the editor writes pending changes before the
+      // installer closes the app.
+      beforeInstall: async () => {
+        if (state.view !== "day") return;
+        (await loadNotesUi()).hideNotes();
+        await new Promise((r) => setTimeout(r, 400));
+      },
+    });
+  }, 3000);
+}
