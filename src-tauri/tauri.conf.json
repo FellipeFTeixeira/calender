@@ -41,6 +41,18 @@
         "installMode": "currentUser",
         "languages": ["PortugueseBR"]
       }
+    },
+    "createUpdaterArtifacts": true
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDgzREQ3NzIyODk5MzBGMUUKUldRZUQ1T0pJbmZkZ3pxNzVSWExjVW9PbjdqbGpzSC96RTBiWnRRVkdwWjdETzFTUDVFOVJ4L1EK",
+      "endpoints": [
+        "https://github.com/FellipeFTeixeira/calender/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
+      }
     }
   }
 }
