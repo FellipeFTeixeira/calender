@@ -20,13 +20,13 @@ As notas ficam em `Documentos\Calendario\data` (um arquivo JSON por nota, imagen
 - Vite para o build do frontend
 - Instalador NSIS
 
-## Instalar
+## Instalar ou atualizar
 
-Baixe o `Calendario_x.x.x_x64-setup.exe` da última versão em [Releases](https://github.com/FellipeFTeixeira/calender/releases/latest) e execute. Instala só para o usuário atual, sem precisar de administrador.
+**[Clique aqui para baixar](https://github.com/FellipeFTeixeira/calender/releases/latest/download/Calendario-setup.exe)**, abra o arquivo baixado e pronto.
 
-O instalador não é assinado digitalmente. Se o Windows mostrar o aviso do SmartScreen, clique em "Mais informações" > "Executar assim mesmo".
+Para atualizar, é igual: clique no link e abra o arquivo. Suas notas continuam salvas.
 
-Requer WebView2 (já vem no Windows 10/11; se faltar, o instalador baixa).
+Se aparecer o aviso azul do Windows, clique em "Mais informações" > "Executar assim mesmo".
 
 ## Compilar
 
